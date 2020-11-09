@@ -9,11 +9,19 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+const employees = []
+
 const addEngineer = () => {
     inquirer.prompt([
         {
             name: 'name',
             message: 'What is your name?'
+        },
+        {
+            type: 'list',
+            message: 'What is your role?',
+            name: 'role',
+            choices: ['Engineer', 'Intern', 'Manager',]
         },
         {
             name: 'id',
@@ -29,7 +37,8 @@ const addEngineer = () => {
         }
   ])
   .then(data => {
-    const engineer = new Engineer(data.id, data.email, data.github);
+    const employee = new Engineer(data.name, data.role, data.id, data.email, data.github);
+    employees.push(employee)
     console.log("Succesfully added the Engineer!")
     askToAddEmployee()
   })
@@ -41,6 +50,12 @@ const addIntern = () => {
         {
             name: 'name',
             message: 'What is your name?'
+        },
+        {
+            type: 'list',
+            message: 'What is your role?',
+            name: 'role',
+            choices: ['Engineer', 'Intern', 'Manager',]
         },
         {
           name: 'id',
@@ -56,7 +71,8 @@ const addIntern = () => {
         }
     ])
     .then(data => {
-        const intern = new Intern(data.id, data.email, data.school);
+        const employee = new Intern(data.name, data.role, data.id, data.email, data.school);
+        employees.push(employee)
         console.log("Succesfully added the Intern!")
         askToAddEmployee()
       })
@@ -68,6 +84,12 @@ const addManager = () => {
         {
             name: 'name',
             message: 'What is your name?'
+        },
+        {
+            type: 'list',
+            message: 'What is your role?',
+            name: 'role',
+            choices: ['Engineer', 'Intern', 'Manager',]
         },
         {
           name: 'id',
@@ -83,7 +105,8 @@ const addManager = () => {
         }
     ])
     .then(data => {
-        const manager = new Manager(data.id, data.email, data.officeNum);
+        const employee = new Manager(data.name, data.role, data.id, data.email, data.officeNum);
+        employees.push(employee)
         console.log("Succesfully added the Manager!")
         askToAddEmployee()
       })
@@ -104,7 +127,7 @@ const askToAddEmployee = () => {
         } 
         else {
             console.log("Your team is being created!")
-            render();
+            render(employees);
         }
     });
 }
