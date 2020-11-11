@@ -18,12 +18,6 @@ const addEngineer = () => {
             message: 'What is your name?'
         },
         {
-            type: 'list',
-            message: 'What is your role?',
-            name: 'role',
-            choices: ['Engineer', 'Intern', 'Manager',]
-        },
-        {
             name: 'id',
             message: 'What is your id?'
         },
@@ -37,7 +31,7 @@ const addEngineer = () => {
         }
   ])
   .then(data => {
-    const employee = new Engineer(data.name, data.role, data.id, data.email, data.github);
+    const employee = new Engineer(data.name, data.id, data.email, data.github);
     employees.push(employee)
     console.log("Succesfully added the Engineer!")
     askToAddEmployee()
@@ -50,12 +44,6 @@ const addIntern = () => {
         {
             name: 'name',
             message: 'What is your name?'
-        },
-        {
-            type: 'list',
-            message: 'What is your role?',
-            name: 'role',
-            choices: ['Engineer', 'Intern', 'Manager',]
         },
         {
           name: 'id',
@@ -71,7 +59,7 @@ const addIntern = () => {
         }
     ])
     .then(data => {
-        const employee = new Intern(data.name, data.role, data.id, data.email, data.school);
+        const employee = new Intern(data.name, data.id, data.email, data.school);
         employees.push(employee)
         console.log("Succesfully added the Intern!")
         askToAddEmployee()
@@ -86,12 +74,6 @@ const addManager = () => {
             message: 'What is your name?'
         },
         {
-            type: 'list',
-            message: 'What is your role?',
-            name: 'role',
-            choices: ['Engineer', 'Intern', 'Manager',]
-        },
-        {
           name: 'id',
           message: 'What is your id?'
         },
@@ -104,9 +86,8 @@ const addManager = () => {
             message: 'What is your office number?'
         }
     ])
-    .then(() => {
-        const employee = new Manager(this.name, this.role, this.id, this.email, this.officeNumber);
-        console.log('employee:', employee)
+    .then(data => {
+        const employee = new Manager(data.name, data.id, data.email, data.officeNumber);
         employees.push(employee)
         console.log("Succesfully added the Manager!")
         askToAddEmployee()
@@ -127,6 +108,7 @@ const askToAddEmployee = () => {
             addEmployee();
         } 
         else {
+            console.log(employees)
             console.log("Your team is being created!")
             render(employees);
             buildHtml()
